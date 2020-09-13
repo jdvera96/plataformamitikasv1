@@ -67,6 +67,7 @@
     "ngx-echarts": "^4.2.2",
     "node-sass": "^4.14.1",
     "normalize.css": "6.0.0",
+    "pace-js": "^1.0.2",
     "pdfmake": "^0.1.68",
     "rxjs": "6.5.4",
     "rxjs-compat": "6.3.0",
