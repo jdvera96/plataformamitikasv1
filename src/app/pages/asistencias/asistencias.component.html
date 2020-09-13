@@ -1,0 +1,48 @@
+<button class="btn btn-cool-blues btn-rounded" (click)="goToBack()"><i class="fas fa-arrow-left"></i>&nbsp;Atras</button>
+<h1 class="text-center">Asistencias</h1>
+
+<div class="container">
+<div class="form-group">    
+    <select class="form-control" id="sesion_select" (click)="cargarEstudiantes()" >
+      <option value="" selected disabled>Elija un modulo</option>
+      <option *ngFor='let sesion of objectSesiones' value="{{sesion.id}}">{{sesion.titulo}}</option>
+    </select>
+
+</div>
+
+<div class="table-responsive">
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nombre</th>
+        <!--<th scope="col">Estado</th>-->
+        <th scope="col">Asistencia</th>
+        <!--<th scope="col">Accion</th>-->
+      </tr>
+    </thead>
+    <tbody id="t_body_asistencias">
+        <tr *ngFor='let estudiante of objectEstudiantes' id="{{estudiante.id_estudiante.cedula}}" class="fila">            
+            
+            <td>{{estudiante.id_estudiante.apellidos}} {{estudiante.id_estudiante.nombres}}</td>     
+
+            <td *ngIf="estudiante.asistencia; else elseBlock2">
+              <label class="checkbox">
+                <input [disabled]="estudiante.asistido" type="checkbox" class="asistencia" checked/>
+                <span class="primary"></span>
+            </label>
+            </td>
+            <ng-template #elseBlock2><td>
+              <label class="checkbox">
+                <input [disabled]="estudiante.asistido" type="checkbox" class="asistencia"/>
+                <span class="primary"></span>
+            </label>
+            </td></ng-template>                                    
+      </tr>
+    </tbody>
+</table>
+</div>
+<div class="text-center">
+<button (click)="asignarAsistencias()" class="btn btn-green-moon btn-rounded">Actualizar asistencias</button>
+</div>
+</div>
+

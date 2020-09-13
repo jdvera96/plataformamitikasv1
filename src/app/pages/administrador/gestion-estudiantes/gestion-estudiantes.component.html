@@ -1,0 +1,328 @@
+
+<div class="container">
+    <h1 class="titulo">Gestión de estudiantes</h1>
+
+    <form class="mt-3">
+        <div class="form-row">
+          <div class="col">
+            <input (keyup)="onKey($event)" id="buscador" type="text" class="form-control" placeholder="Buscar estudiante por cedula, nombres o apellidos">
+          </div>
+          <div class="col">
+            <button (click)="estudianteCrearView(content3)" type="button" class="btn btn-success float-right">Nuevo</button>
+          </div>
+        </div>
+    </form>
+
+    <table class="table mt-2">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Apellidos y Nombres</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Acciones
+            </th>
+            </tr> 
+        </thead>
+        <tbody>
+            <ng-template  [ngIf]="true">
+                <tr *ngFor='let estudiante of estudiantesObject; index as i' >
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{estudiante.cedula}}</td>
+                    <td>{{estudiante.apellidos}} {{estudiante.nombres}}</td>
+                    <td>{{estudiante.telefono}}</td>
+                    <td>
+                        <button id="btnVer_{{estudiante.cedula}}" class="btn btn-sm btn-success seeButton mr-1" (click)="estudianteInfoView(content2,estudiante.cedula)" ><i class="far fa-eye"></i>&nbsp;</button>
+                        <button id="btnEliminar_{{estudiante.cedula}}" class="btn btn-sm btn-danger deleteButton" (click)="deleteEstudiante(estudiante.cedula)" ><i class="fas fa-times"></i>&nbsp;</button>
+                    </td>
+                
+                </tr>
+            </ng-template>
+            
+            
+        </tbody>
+    </table>
+      
+</div>
+
+
+<!-- Modal para visualizar detalle de la estudiante -->
+<ng-template #content2 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title-view">Detalles</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>        
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="needs-validation" novalidate>
+       
+            <div class="form-row">
+                <div class="col-8">
+                    <label>Apellidos y Nombres</label>
+                    <input disabled type="text" class="form-control" id="view_input_nombres" aria-describedby="inputSesion" required>
+                    <div class="validation" *ngIf="val01">
+                        Por favor escriba Apellidos y Nombres
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <label>Cedula</label>
+                    <input disabled type="text" class="form-control" id="view_input_cedula" aria-describedby="inputTitulo">
+                </div>
+            
+            </div>
+          
+            <div class="form-row">
+                <div class="col-8">
+                    <label>Direccion</label>
+                    <input disabled type="text" class="form-control" id="view_input_direccion" required>
+                    <div class="validation" *ngIf="val02">
+                        Por favor escriba la Direccion
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Telefono</label>
+                    <input
+                        disabled
+                        id="view_input_telefono"
+                        type="text"
+                        digitOnly                        
+                        class="form-control"
+                        required
+                    />
+                    <div class="validation" *ngIf="val03">
+                        Por favor digite el teléfono
+                    </div>
+                    <!--<input disabled type="text" class="form-control" id="view_input_telefono" >-->
+
+                </div>
+            </div>
+          
+            <div class="form-row">
+                <div class="col-8">
+                    <label>Escolaridad</label>
+                    <!--<input disabled type="text" class="form-control" id="view_input_escolaridad" >-->
+                    <select disabled class="form-control" id="view_input_escolaridad">
+                        <option>Educación Primaria</option>
+                        <option>Educación Secundaria</option>
+                        <option>Educación Superior</option>
+                        <option>Postgrado</option>
+                      </select>
+                </div>
+                <div class="col">
+                    <label>Pais</label>
+                    <!--<input disabled type="text" class="form-control" id="view_input_pais" >-->
+                    
+                    <select disabled class="form-control" id="view_input_pais">
+                        <option #countries *ngFor="let countrySelected of countryData; let last = last" value="{{countrySelected.name}}">
+                            {{countrySelected.name}} {{last ? callFunction():''}}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-8">
+                    <label>Fecha de nacimiento</label>
+                    <input disabled  class="form-control" type="date" id="view_input_fecha">
+                    <div class="validation" *ngIf="val04">
+                        Por favor ingrese una fecha
+                    </div>
+                    
+                </div>
+                <div class="col">    
+                    <label>Ciudad</label>
+                    <input disabled type="text" class="form-control" id="view_input_ciudad" required>
+                    <div class="validation" *ngIf="val05">
+                        Por favor ingrese una ciudad
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-8">
+                    <label>Grupo Excluido</label>
+                    <!--<input disabled type="text" class="form-control" id="view_input_grupo" >-->
+                    <select disabled class="form-control" id="view_input_grupo">
+                        <option>Ninguna</option>
+                        <option>Afroamericana</option>
+                        <option>LGBTI</option>
+                        <option>Indigena</option>                        
+                      </select>
+                </div>
+                <div class="col">    
+                    <label>Sexo</label>
+                    <!--<input disabled type="text" class="form-control" id="view_input_sexo" >-->
+                    <select disabled class="form-control" id="view_input_sexo">
+                        <option>Femenino</option>
+                        <option>Masculino</option>                        
+                      </select>
+                </div>
+            </div>
+          
+            <button id="btn_habilitar" type="button" class="btn btn-success mt-3" (click)="desbloquearCampos()">Habilitar Edición</button>            
+      </form>      
+    </div>    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="guardarCambios()">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('cerrar')">Cerrar</button>  
+    </div>
+  </ng-template>
+
+  <!-- Modal para visualizar detalle de la estudiante -->
+<ng-template #content3 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title-view">Crear Estudiante</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="needs-validation" novalidate>
+        <div class="form-group">
+
+            <div class="form-row">
+                <div class="col-6">
+                    <label>Correo</label>
+                    <input type="text" class="form-control" id="view_inputCrear_correo" required>
+                    <div class="validation" *ngIf="val06">
+                        Por favor escriba el correo
+                    </div>                    
+                </div>
+                <div class="col-6">
+                    <label>Password</label>
+                    <input type="text" class="form-control" id="view_inputCrear_password" required>
+                    <div class="validation" *ngIf="val07">
+                        Porfavor ingrese la contraseña
+                      </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-6">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control" id="view_inputCrear_apellidos" required>
+                    <div class="validation" *ngIf="val08">
+                        Porfavor ingrese el apellido
+                      </div>
+                </div>
+                <div class="col-6">
+                    <label>Nombres</label>
+                    <input type="text" class="form-control" id="view_inputCrear_nombres" required>
+                    <div class="validation" *ngIf="val09">
+                        Porfavor ingrese el nombre
+                      </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-6">
+                    <label>Cedula</label>
+                    <input type="text" class="form-control" id="view_inputCrear_cedula" required>
+                    <div class="validation" *ngIf="val10">
+                        Porfavor ingrese la cédula
+                      </div>
+                </div>
+                <div class="col-6">
+                    <label>Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="view_inputCrear_fecha" required>
+                    <div class="validation" *ngIf="val04">
+                        Porfavor ingrese una fecha
+                      </div>
+
+                </div>
+            </div>
+          
+            <div class="form-row">
+                <div class="col-6">
+                    <label>Direccion</label>
+                    <input type="text" class="form-control" id="view_inputCrear_direccion" required>
+                    <div class="validation" *ngIf="val02">
+                        Porfavor ingrese una dirección
+                      </div>
+                </div>
+                <div class="col-6">
+                    <label>Telefono</label>
+                    <input                        
+                        id="view_inputCrear_telefono"
+                        type="text"
+                        digitOnly                        
+                        class="form-control"
+                        required
+                    />
+                    <div class="validation" *ngIf="val03">
+                        Porfavor digite el teléfono
+                      </div>
+                    <!--<input type="text" class="form-control" id="view_inputCrear_telefono" >-->
+
+                </div>
+            </div>
+          
+            <div class="form-row">
+                <div class="col-6">
+                    <label>Escolaridad</label>
+                    <!--<input type="text" class="form-control" id="view_inputCrear_escolaridad" >-->
+                    <select class="form-control" id="view_inputCrear_escolaridad">
+                        <option>Educación Primaria</option>
+                        <option>Educación Secundaria</option>
+                        <option>Educación Superior</option>
+                        <option>Postgrado</option>                        
+                      </select>
+
+                </div>
+                <div class="col-6">
+                    <label>Pais</label>
+                    <!--<input type="text" class="form-control" id="view_inputCrear_pais" >-->
+                    <select class="form-control" id="view_inputCrear_pais">
+                        <option *ngFor="let countrySelected of countryData">
+                            {{countrySelected.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                
+                <div class="col-6">    
+                    <label>Ciudad</label>
+                    <input type="text" class="form-control" id="view_inputCrear_ciudad" required>
+                    <div class="validation" *ngIf="val05">
+                        Porfavor ingrese una ciudad
+                      </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-8">
+                    <label>Grupo Excluido</label>
+                    <!--<input type="text" class="form-control" id="view_inputCrear_grupo" >-->
+                    <select class="form-control" id="view_inputCrear_grupo">
+                        <option>Ninguna</option>
+                        <option>Afroamericana</option>
+                        <option>LGBTI</option>
+                        <option>Indigena</option>                        
+                      </select>
+                </div>
+                <div class="col">    
+                    <label>Sexo</label>
+                    <!--<input type="text" class="form-control" id="view_inputCrear_sexo" >-->
+                    <select class="form-control" id="view_inputCrear_sexo">
+                        <option>Femenino</option>
+                        <option>Masculino</option>                        
+                      </select>
+                </div>
+            </div>
+    
+        </div>
+        
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="crearEstudiante()">Crear</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('cerrar')">Cerrar</button>
+    </div>
+    </div>
+    
+    
+  </ng-template>

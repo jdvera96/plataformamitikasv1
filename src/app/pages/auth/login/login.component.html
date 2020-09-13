@@ -1,0 +1,36 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon --> 
+    <div class="fadeIn first">
+      <img src="assets/mitikas_svg/default-monochrome-white.svg" id="icon" alt="User Icon" class="logo" />
+    </div>
+
+    <!-- Login Form -->
+
+    <form class="needs-validation" novalidate>
+    <input type="text" id="correo" class="fadeIn third form-control" name="correo" placeholder="Correo" required>
+    <div class="invalid-feedback">
+      Porfavor ingrese el usuario
+    </div>
+    <input type="password" id="password" class="fadeIn third form-control" name="login" placeholder="Contraseña" required>
+    <div class="invalid-feedback">
+      Porfavor ingrese la contraseña
+    </div>
+    <button class="fadeIn fourth button-login" type="submit" value="Iniciar Sesión" (click)="logearse()">Iniciar Sesión</button>
+    <!--<input type="button" class="fadeIn fourth" value="Iniciar Sesión" (click)="logearse()">-->
+    </form>
+    
+    <!-- Remind Passowrd 
+    <div id="formFooter">
+      <a class="underlineHover" href="#">¿Olvidó su contraseña?</a>
+    </div>-->
+
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<h1 class="text-center">Consultar cursos</h1>
+
+<div class="container">
+  <div class="form-group">
+    
+
+      <div class="row">
+        <div class="col-md-6">
+        <p class="titulo_h2">Elija un curso</p>
+        <select class="form-control" id="curso_select" >
+            <option value="" selected disabled>Seleccione un curso</option>
+            <option *ngFor='let curso of objectCursos' value="{{curso.id}}">{{curso.id_curso.titulo_curso}}</option>
+        </select>
+      </div>
+    
+      <div class="col-md-6">
+        <p class="titulo_h2">Elija un accion</p>
+        <select class="form-control " id="accion_select" (click)="detectarSelect()">
+            <option value="" selected disabled>Seleccione una accion</option>
+            <option value="1">Consultar Tareas</option>
+            <option value="2">Consultar calificaciones</option>
+            <option value="3">Consultar Asistencias</option>
+            <option value="4">Consultar Listado</option>
+        </select>
+        </div>
+
+    </div>
+
+
+    <div class="" id="div_tareas">
+
+    </div>
+
+    <div class="" id="div_sesiones">
+
+    </div>
+
+    <div class="text-center"> 
+        <button type="button" class="btn btn-success" (click)="accionConsultar()">Consultar</button>
+    </div>
+
+    <div class="container mt-3" id="show_data">
+
+    </div>
+    
+</div>
+
+<button type="button" class="btn btn-success" (click)="generatePdf()">Descargar</button>
+
+<div class="w3-container">
+  
+    <div id="id01" class="w3-modal ">
+      <div class="w3-modal-content " id="modal_contenedor">
+        <div class="w3-container">
+          <div class="row">
+            <div class="col-md-11">
+            <h2 class="text-center">Detalle de la tarea</h2>
+          </div>
+            <button onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</button>                
+          <div class="col-md-6">
+            <h3 class="">Titulo</h3>
+            <p id="campo_titulo">Tarea de prueba</p>
+          </div>
+          <div class="col-md-6">
+            <h3>Sesion</h3>
+            <p id="campo_sesion">Sesion de prueba</p>
+          </div>
+          <div class="col-md-6">
+            <h3>Descripcion</h3>
+            <p id="campo_descripcion">Descripcion de prueba</p>
+          </div>
+          <div class="col-md-6">
+            <h3>Fecha de creacion</h3>
+            <p id="campo_fecha">Fecha de prueba</p>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,53 @@
+
+<div class="container">
+    <div class="row justify-content-center">
+		<div class="col-md-4 col-md-offset-4 notificacion-panel">
+    		<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Enviar Notificacion</h3>
+			 	</div>
+			  	<div class="panel-body">
+			    	<form class="needs-validation" novalidate>
+			    	  	<div class="form-group">
+							<label for="exampleFormControlTextarea1">Título</label>
+							<input class="form-control" placeholder="Titulo" name="titulo" id="notificacion_titulo" type="text" required>
+							<div class="validation" *ngIf="val01">
+								Por favor ingrese el titulo
+							</div>							  
+						</div>
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">Grupo:</label>
+							<select class="form-control" id="notificacion_grupo">
+							  <option (click)="curso=false">Todos</option>
+							  <option (click)="curso=false">Ninguna</option>
+							  <option (click)="curso=false">Afroamericana</option>
+							  <option (click)="curso=false">LGBTI</option>
+							  <option (click)="curso=false">Indigena</option>
+							  <option (click)="curso=true">Por curso</option>
+							</select>
+						  </div>
+						<div class="form-group" *ngIf="curso">
+							<label for="exampleFormControlSelect1">Curso</label>
+							<select class="form-control" id="notificacion_curso">
+							  <option *ngFor="let curso of objectCursos" id="{{curso.id}}" value="{{curso.titulo}}">
+								  {{curso.titulo}}
+							  </option>
+
+							</select>
+						  </div>
+						<div class="form-group">
+							<label for="exampleFormControlTextarea1">Contenido</label>
+							<textarea class="form-control" id="notificacion_descripcion" rows="3" required></textarea>
+							<div class="validation" *ngIf="val02">
+								Por favor ingrese el contenido
+							</div>		
+						  </div>
+						  <div class="text-center">
+							<button (click)="sendNotificacion()" class="btn btn-lg btn-success" type="button" value="Enviar">Enviar Notificacion</button>
+						  </div>
+			      	</form>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>

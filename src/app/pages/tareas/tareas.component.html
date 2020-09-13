@@ -1,0 +1,112 @@
+
+<button class="btn btn-cool-blues btn-rounded" (click)="goToBack()"><i class="fas fa-arrow-left"></i>&nbsp;Atras</button>
+<h1 class="text-center">Tareas</h1>
+
+<select class="form-control" id="select_sesion" >
+  <option *ngFor='let sesion of objectSesiones' value="{{sesion.id}}">{{sesion.titulo}}</option>
+</select>
+<button class="btn btn-green-moon btn-rounded" (click)="actualizarTareas()">&nbsp;Consultar</button>
+
+<button (click)="openCrear(content)" class="float-right btn btn-green-moon btn-rounded"><i class="fas fa-plus"></i>&nbsp;Nueva Tarea </button>
+<div class="table-responsive">
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <!--<th scope="col">#</th>-->
+        <th scope="col">Titulo</th>
+        <th scope="col">Fecha Creación</th>
+        <th scope="col">Fecha Entrega</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor='let tarea of objectTareas' id="{{tarea.id}}">
+            <!--<th scope="row">{{tarea.id}}</th>-->
+            <td>{{tarea.nombre_tarea}}</td>
+            <td>{{tarea.fecha_creacion}}</td>
+            <td>{{tarea.fecha_entrega}}</td>
+            <td>
+              <button class="btn btn-sm btn-success seeButton" (click)="tareaInfoView(content2,tarea.id)" id="{{tarea.id}}"><i class="far fa-eye"></i>&nbsp; Ver</button>
+              <button class="btn btn-sm btn-danger deleteButton" (click)="deleteTarea(tarea.id)" id="{{tarea.id}}"><i class="fas fa-times"></i>&nbsp;Borrar</button>                            
+            </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Crear Nueva Tarea</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Eliga el modulo</label>
+
+        <select class="form-control" id="tarea_select_sesion" >
+          <option *ngFor='let sesion of objectSesiones' value="{{sesion.id}}">{{sesion.titulo}}</option>
+        </select>
+
+        <label>Titulo</label>
+        <input type="text" class="form-control" id="input_titulo" aria-describedby="inputTitulo">
+        <div class="validation" *ngIf="val01">
+          Por favor ingrese el titulo
+        </div>		
+        <label>Fecha de Entrega</label>
+        <input type="date" class="form-control" id="input_fecha" aria-describedby="inputFecha">
+        <div class="validation" *ngIf="val02">
+          Por favor ingrese la fecha
+        </div>		
+        <label>Descripcion</label>
+        <textarea class="form-control" id="input_descripcion" rows="3"></textarea>
+        <div class="validation" *ngIf="val03">
+          Por favor ingrese la descripcion
+        </div>
+        
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="crearTarea()">Crear</button>
+  </div>
+</ng-template>
+
+<!-- Modal para visualizar detalle de la tarea -->
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-view">Detalles</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label>Modulo</label>
+        <input disabled type="text" class="form-control" id="view_input_sesion" aria-describedby="inputSesion">
+    
+        <label>Titulo</label>
+        <input disabled type="text" class="form-control" id="view_input_titulo" aria-describedby="inputTitulo">
+        
+        <label>Descripcion</label>
+        <textarea disabled class="form-control" id="view_input_descripcion" aria-describedby="input_descripcion"></textarea>
+        
+      </div>
+    </form>
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('cerrar')">Cerrar</button>
+  </div>
+</ng-template>
